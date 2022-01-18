@@ -7,26 +7,33 @@ import {
   RouteComponentProps,
 } from 'react-router-dom';
 import routes from './routes';
+import Layout from './components/common/Layout';
+import Header from './components/common/Header';
+import { useAppDispatch } from './redux/hooks';
+import { fetchProducts } from './redux/product/productSlice';
 
 const App = () => {
   return (
     <>
       <Provider store={store}>
         <BrowserRouter>
-          <Switch>
-            {routes.map((route, index) => {
-              return (
-                <Route
-                  key={index}
-                  path={route.path}
-                  exact={route.exact}
-                  render={(props: RouteComponentProps<any>) => (
-                    <route.component {...props} />
-                  )}
-                ></Route>
-              );
-            })}
-          </Switch>
+          <Header />
+          <Layout>
+            <Switch>
+              {routes.map((route, index) => {
+                return (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    exact={route.exact}
+                    render={(props: RouteComponentProps<any>) => (
+                      <route.component {...props} />
+                    )}
+                  ></Route>
+                );
+              })}
+            </Switch>
+          </Layout>
         </BrowserRouter>
       </Provider>
     </>
